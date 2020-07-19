@@ -1,7 +1,7 @@
 {
   "name": "react-native-cxense",
   "title": "React Native Cxense",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Native wrapper for CxenseSDK",
   "main": "index.js",
   "files": [
