@@ -11,10 +11,19 @@ RCT_EXPORT_METHOD(initWithUsername:(NSString *)username
 {
     CXConfiguration *config = [[CXConfiguration alloc] initWithUserName:username
                                                                  apiKey:apiKey];
+#if DEBUG
+    [config setEventsCallback:^(NSString * _Nonnull data, BOOL success, NSError * _Nullable err) {
+        NSLog(@"CXense event Callback: event:%@ - succeeded:%i - error:%@", data, success, err.description);
+    }];
+#endif
     NSError *error = nil;
     [CXCxense initializeWithConfiguration:config
                                     error:&error :^{
-        completionHandler(@[error]);
+        if(error != nil) {
+            completionHandler(@[error]);
+        } else {
+            completionHandler(nil);
+        }
     }];
 }
 
@@ -23,7 +32,8 @@ RCT_EXPORT_METHOD(trackEventWithName:(NSString *)name
                   location:(nullable NSString *)location
                   userprofileParameterKey:(nullable NSString *)profileKey value:(nullable NSString *)profileValue
                   customParameterKey:(nullable NSString *)customKey value:(nullable NSString *)customValue
-                  extraParameterKey:(nullable NSString *)extraKey value:(nullable NSString *)extraValue)
+                  extraParameterKey:(nullable NSString *)extraKey value:(nullable NSString *)extraValue
+                  completionHandler:(RCTResponseSenderBlock)completionHandler)
 {
     CXPageViewEventBuilder *builder = [CXPageViewEventBuilder makeBuilderWithName:name
                                                                            siteId:siteID];
@@ -40,7 +50,12 @@ RCT_EXPORT_METHOD(trackEventWithName:(NSString *)name
     
     NSError *error;
     CXPageViewEvent *event = [builder build:&error];
-    [CXCxense reportEvent:event];
+    if (error != nil) {
+        completionHandler(@[error]);
+    } else {
+        [CXCxense reportEvent:event];
+        completionHandler(nil);
+    }
 }
 
 @end
