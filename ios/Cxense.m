@@ -29,11 +29,11 @@ RCT_EXPORT_METHOD(initWithUsername:(NSString *)username
 
 RCT_EXPORT_METHOD(trackEventWithName:(NSString *)name
                   siteID:(NSString *)siteID
-                  completionHandler:(RCTResponseSenderBlock)completionHandler
                   location:(nullable NSString *)location
                   userprofileParameterKey:(nullable NSString *)profileKey value:(nullable NSString *)profileValue
                   customParameterKey:(nullable NSString *)customKey value:(nullable NSString *)customValue
-                  extraParameterKey:(nullable NSString *)extraKey value:(nullable NSString *)extraValue)
+                  extraParameterKey:(nullable NSString *)extraKey value:(nullable NSString *)extraValue
+completionHandler:(RCTResponseSenderBlock)completionHandler)
 {
     CXPageViewEventBuilder *builder = [CXPageViewEventBuilder makeBuilderWithName:name
                                                                            siteId:siteID];
