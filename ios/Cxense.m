@@ -29,23 +29,31 @@ RCT_EXPORT_METHOD(initWithUsername:(NSString *)username
 
 RCT_EXPORT_METHOD(trackEventWithName:(NSString *)name
                   siteID:(NSString *)siteID
+                  completionHandler:(RCTResponseSenderBlock)completionHandler
                   location:(nullable NSString *)location
                   userprofileParameterKey:(nullable NSString *)profileKey value:(nullable NSString *)profileValue
                   customParameterKey:(nullable NSString *)customKey value:(nullable NSString *)customValue
-                  extraParameterKey:(nullable NSString *)extraKey value:(nullable NSString *)extraValue
-                  completionHandler:(RCTResponseSenderBlock)completionHandler)
+                  extraParameterKey:(nullable NSString *)extraKey value:(nullable NSString *)extraValue)
 {
     CXPageViewEventBuilder *builder = [CXPageViewEventBuilder makeBuilderWithName:name
                                                                            siteId:siteID];
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wunused-result"
-    [builder setLocation:location];
-    [builder addUserProfileParameterForKey:profileKey
-                                 withValue:profileValue];
-    [builder addCustomParameterForKey:customKey
-                            withValue:customValue];
-    [builder addParameterForKey:extraKey
-                      withValue:extraValue];
+    if (location) {
+        [builder setLocation:location];
+    }
+    if (profileKey != nil && profileValue != nil) {
+        [builder addUserProfileParameterForKey:profileKey
+                                     withValue:profileValue];
+    }
+    if (customKey != nil && customValue != nil) {
+        [builder addCustomParameterForKey:customKey
+                                withValue:customValue];
+    }
+    if (extraKey != nil && extraValue != nil) {
+        [builder addParameterForKey:extraKey
+                          withValue:extraValue];
+    }
 #pragma GCC diagnostic pop
     
     NSError *error;
@@ -54,8 +62,13 @@ RCT_EXPORT_METHOD(trackEventWithName:(NSString *)name
         completionHandler(@[error]);
     } else {
         [CXCxense reportEvent:event];
+        [CXCxense flushEventQueue];
         completionHandler(nil);
     }
+}
+
+RCT_EXPORT_METHOD(flushQueue) {
+    [CXCxense flushEventQueue];
 }
 
 @end
