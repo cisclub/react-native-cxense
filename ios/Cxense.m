@@ -62,7 +62,6 @@ completionHandler:(RCTResponseSenderBlock)completionHandler)
         completionHandler(@[error]);
     } else {
         [CXCxense reportEvent:event];
-        [CXCxense flushEventQueue];
         completionHandler(nil);
     }
 }
