@@ -1,8 +1,8 @@
 import { NativeModules } from 'react-native';
 
-const { Cxense } = NativeModules;
+const CxenseModule = NativeModules.Cxense;
 
-const CxenseModule = {
+const Cxense = {
     /*
      * @param username           name of the user under which API will be accessed.
      * @param apiKey             API key. It can be obtained from https://{insight|dmp}.cxense.com
@@ -33,4 +33,4 @@ const CxenseModule = {
     }
 }
 
-export default CxenseModule;
+export default Cxense;
