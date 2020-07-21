@@ -9,7 +9,7 @@ const Cxense = {
      * @param callbackHandler    (callback) = > {} function called after initialisation is done. if callback equals to NULL/Undefined this means initialisation was successful otherwise it will contain the error.
      */
     init(username, apiKey, callbackHandler) {
-	    Cxense.initWithUsername(username, apiKey, callbackHandler);
+        CxenseModule.initWithUsername(username, apiKey, callbackHandler);
     },
 
     /*
@@ -22,14 +22,14 @@ const Cxense = {
      * @param callbackHandler   (callback) = > {} function called after initialisation is done. if callback equals to NULL/Undefined this means initialisation was successful otherwise it will contain the error.
      */
     trackEvent(name, siteID, location, profileParameterKey, profileParameterValue, customParameterKey, customParameterValue, extraParameterKey, extraParameterValue, callBackHandler) {
-        Cxense.trackEventWithName(name, siteID, location, profileParameterKey, profileParameterValue, customParameterKey, customParameterValue, extraParameterKey, extraParameterValue, callBackHandler);
+        CxenseModule.trackEventWithName(name, siteID, location, profileParameterKey, profileParameterValue, customParameterKey, customParameterValue, extraParameterKey, extraParameterValue, callBackHandler);
     },
 
     /*
      * Will force send all events in queue. By default events are sent in batches.
      */
     flushQueue() {
-        Cxense.flushQueue();
+        CxenseModule.flushQueue();
     }
 }
 
