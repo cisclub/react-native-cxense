@@ -12,6 +12,32 @@
 ```javascript
 import Cxense from 'react-native-cxense';
 
-// TODO: What to do with the module?
-Cxense;
+Cxense.init(
+  'user_name',
+  'api_key',
+  callback => {
+    if (callback === undefined) {
+      Cxense.trackEvent(
+        'event_name',
+        'site_id',
+        'location_url',
+        'param',
+        'value',
+        'param',
+        'value',
+        'param',
+        'value',
+        incallback => {
+          if (incallback === undefined) {
+            // Cxense.flushQueue();
+          } else {
+            console.log('Error sending the event: ', incallback);
+          }
+        },
+      );
+    } else {
+      console.log('Error initializing Cxense:', callback);
+    }
+  },
+);
 ```
