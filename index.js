@@ -16,9 +16,9 @@ const Cxense = {
      * @param name              event’s name. It is strongly recommended to provide unique name for the event.
      * @param siteID            the analytics site identifier to be associated with the events.
      * @param location          location of the page. Must be a syntactically valid URL, or else the event will be dropped.
-     * @param profileParameter  user profile parameter to the event. Event’s user profile parameters keys are prefixed with “cp_u_” string automatically. You do not need to prefix them manually.
-     * @param customParameter   custom parameter to the event. Event’s custom parameters keys are prefixed with “cp_” string automatically. You do not need to prefix them manually.
-     * @param extraParameter    extra property you can add.
+     * @param profileParameter  user profile parameter to the event. Event’s user profile parameters keys are prefixed with “cp_u_” string automatically. You do not need to prefix them manually. Avoid long strings.
+     * @param customParameter   custom parameter to the event. Event’s custom parameters keys are prefixed with “cp_” string automatically. You do not need to prefix them manually. Avoid long strings.
+     * @param extraParameter    extra property you can add. Avoid long strings.
      * @param callbackHandler   (callback) = > {} function called after initialisation is done. if callback equals to NULL/Undefined this means initialisation was successful otherwise it will contain the error.
      */
     trackEvent(name, siteID, location, profileParameterKey, profileParameterValue, customParameterKey, customParameterValue, extraParameterKey, extraParameterValue, callBackHandler) {
